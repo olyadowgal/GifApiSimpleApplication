@@ -182,3 +182,5 @@ fabric.properties
 ### AndroidStudio Patch ###
 
 !/gradle/wrapper/gradle-wrapper.jar
+
+app/src/main/java/com/example/gifapisimpleapplication/network/BuildConfig.kt

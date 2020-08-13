@@ -1,7 +1,8 @@
-package com.example.gifapisimpleapplication
+package com.example.gifapisimpleapplication.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.gifapisimpleapplication.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
