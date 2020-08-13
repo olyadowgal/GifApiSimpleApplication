@@ -183,4 +183,4 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
-app/src/main/java/com/example/gifapisimpleapplication/network/BuildConfig.kt
+app/keys.gradle
