@@ -1,0 +1,8 @@
+android {
+
+    defaultConfig {
+        buildConfigField 'String', 'BASE_URL', '"https://api.tenor.com/v1/"'
+        buildConfigField 'String', 'API_KEY', '"put_key_here"'
+    }
+
+}

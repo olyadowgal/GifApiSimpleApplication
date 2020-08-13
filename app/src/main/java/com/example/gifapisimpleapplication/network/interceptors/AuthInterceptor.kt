@@ -1,6 +1,6 @@
 package com.example.gifapisimpleapplication.network.interceptors
 
-import com.example.gifapisimpleapplication.network.BuildConfig
+import com.example.gifapisimpleapplication.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 

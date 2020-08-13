@@ -1,9 +1,8 @@
 package com.example.gifapisimpleapplication.entities
 
+import com.squareup.moshi.JsonClass
 
-import com.squareup.moshi.Json
-
+@JsonClass(generateAdapter = true)
 data class Media(
-    @Json(name = "gif")
     val gif: Gif
 )
