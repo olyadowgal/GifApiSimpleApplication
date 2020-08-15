@@ -6,11 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.gifapisimpleapplication.AppComponent
 import com.example.gifapisimpleapplication.R
+import com.example.gifapisimpleapplication.adapters.FeedAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,14 +16,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        GlobalScope.launch {
-            val gifResponse = AppComponent.apiClient.gifService.getSearch("cats", 10)
-            Log.d("taco", gifResponse.toString())
-            withContext(Dispatchers.Main) {
-                Glide.with(this@MainActivity)
-                    .load(gifResponse.results[0].media[0].gif.url)
-                    .into(image_view)
-            }
-        }
+        val tabsNamesArray = resources.getStringArray(R.array.tabs_names)
+
+        val feedAdapter = FeedAdapter(this, tabsNamesArray.size)
+        feed_pager.adapter = feedAdapter
+
+        TabLayoutMediator(feed_tabs, feed_pager) { tab, position ->
+            tab.text = tabsNamesArray[position]
+        }.attach()
     }
 }

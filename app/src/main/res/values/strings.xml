@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">GifApiSimpleApplication</string>
+
+    <string-array name="tabs_names">
+        <item>Favorites</item>
+        <item>Search</item>
+    </string-array>
+
 </resources>
