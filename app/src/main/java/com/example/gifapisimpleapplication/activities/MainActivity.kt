@@ -1,10 +1,7 @@
 package com.example.gifapisimpleapplication.activities
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
-import com.example.gifapisimpleapplication.AppComponent
 import com.example.gifapisimpleapplication.R
 import com.example.gifapisimpleapplication.adapters.FeedAdapter
 import com.google.android.material.tabs.TabLayoutMediator
