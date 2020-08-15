@@ -1,14 +1,12 @@
 package com.example.gifapisimpleapplication.network.resoponses
 
 
-import com.example.gifapisimpleapplication.entities.Result
-import com.squareup.moshi.Json
+import com.example.gifapisimpleapplication.entities.api.Result
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class GifResponse(
-    @Json(name = "next")
+    @Deprecated("Calculated field")
     val next: String,
-    @Json(name = "results")
     val results: List<Result>
 )

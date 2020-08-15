@@ -3,6 +3,8 @@ package com.example.gifapisimpleapplication
 import android.app.Application
 import com.example.gifapisimpleapplication.network.ApiClient
 import com.example.gifapisimpleapplication.network.interceptors.AuthInterceptor
+import com.example.gifapisimpleapplication.repositories.GifRepository
+import com.example.gifapisimpleapplication.viewmodels.ViewModelFactory
 import com.readystatesoftware.chuck.ChuckInterceptor
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
@@ -14,31 +16,40 @@ import java.util.concurrent.TimeUnit
 
 object AppComponent {
 
-    lateinit var application: Application
-    lateinit var moshi: Moshi
-    lateinit var okHttpClient : OkHttpClient
-    lateinit var retrofit: Retrofit
+    private lateinit var application: Application
 
-    val apiClient by lazy { ApiClient(retrofit) }
+    private val moshi by lazy {
+        Moshi.Builder().build()
+    }
 
-    fun init(application: Application) {
-
-        this.application = application
-
-        moshi = Moshi.Builder().build()
-
-        okHttpClient = OkHttpClient.Builder()
+    private val okHttpClient by lazy {
+        OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .protocols(listOf(Protocol.HTTP_1_1))
             .addInterceptor(AuthInterceptor())
             .build()
+    }
 
-        retrofit = Retrofit.Builder()
+    private val retrofit by lazy {
+        Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
+    }
 
+    private val apiClient by lazy { ApiClient(retrofit) }
+
+    private val gifRepository: GifRepository by lazy {
+        GifRepository(apiClient)
+    }
+
+    val viewModelFactory by lazy {
+        ViewModelFactory(application,gifRepository)
+    }
+
+    fun init(application: Application) {
+        this.application = application
     }
 }

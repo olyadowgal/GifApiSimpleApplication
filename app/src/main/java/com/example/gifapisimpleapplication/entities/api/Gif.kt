@@ -1,4 +1,4 @@
-package com.example.gifapisimpleapplication.entities
+package com.example.gifapisimpleapplication.entities.api
 
 import com.squareup.moshi.JsonClass
 

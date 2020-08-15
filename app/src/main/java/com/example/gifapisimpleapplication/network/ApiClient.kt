@@ -5,5 +5,7 @@ import retrofit2.Retrofit
 
 class ApiClient(retrofit: Retrofit) {
 
-    val gifService: GifService = retrofit.create(GifService::class.java)
+    val gifService: GifService by lazy {
+        retrofit.create(GifService::class.java)
+    }
 }

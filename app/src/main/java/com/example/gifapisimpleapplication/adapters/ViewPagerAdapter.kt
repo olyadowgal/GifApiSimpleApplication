@@ -10,9 +10,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.gifapisimpleapplication.R
 import com.example.gifapisimpleapplication.fragments.FeedFragment
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_feed_fragment.view.*
+import kotlinx.android.synthetic.main.item_feed.view.*
 
-class FeedAdapter (activity: AppCompatActivity, val itemsCount: Int) :
+class ViewPagerAdapter (activity: AppCompatActivity, val itemsCount: Int) :
     FragmentStateAdapter(activity) {
 
     override fun getItemCount(): Int {
@@ -20,7 +20,7 @@ class FeedAdapter (activity: AppCompatActivity, val itemsCount: Int) :
     }
 
     override fun createFragment(position: Int): Fragment {
-        return FeedFragment.getInstance(position)
+        return if (position == 0) FeedFragment.getInstance(position, false) else FeedFragment.getInstance(position, true)
     }
 
 }
