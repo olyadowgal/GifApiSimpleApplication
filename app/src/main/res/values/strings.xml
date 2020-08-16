@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">GifApiSimpleApplication</string>
+    <string name="favorites_button">ADD TO FAVORITES</string>
+
+    <string-array name="tabs_names">
+        <item>Search</item>
+        <item>Favorites</item>
+    </string-array>
+    <string name="id_as_name">Gif # %1$s </string>
 </resources>
