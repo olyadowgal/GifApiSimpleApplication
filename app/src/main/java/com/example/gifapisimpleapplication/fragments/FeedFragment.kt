@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,19 +13,11 @@ import com.example.gifapisimpleapplication.adapters.FeedItemsAdapter
 import com.example.gifapisimpleapplication.viewmodels.FeedViewModel
 import kotlinx.android.synthetic.main.fragment_feed.*
 
-class FeedFragment(val isFavorite: Boolean) : BaseFragment() {
+class FeedFragment() : BaseFragment() {
 
     companion object {
-        private const val ARG_POSITION = "position"
 
-        fun getInstance(
-            position: Int,
-            isFavorite: Boolean
-        ) = FeedFragment(isFavorite).apply {
-            arguments = bundleOf(
-                ARG_POSITION to position
-            )
-        }
+        fun getInstance() = FeedFragment()
     }
 
     override val viewModel: FeedViewModel by viewModels { AppComponent.viewModelFactory }
@@ -49,7 +40,6 @@ class FeedFragment(val isFavorite: Boolean) : BaseFragment() {
             this.adapter = feedItemsAdapter
         }
 
-        viewModel.init(isFavorite)
         viewModel.data.observe(viewLifecycleOwner, Observer { feedItemsAdapter.submitList(it) })
     }
 }
