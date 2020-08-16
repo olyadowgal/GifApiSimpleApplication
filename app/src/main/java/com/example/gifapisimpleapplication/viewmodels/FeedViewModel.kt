@@ -2,11 +2,14 @@ package com.example.gifapisimpleapplication.viewmodels
 
 import android.app.Application
 import android.util.Log
+import androidx.annotation.MainThread
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.paging.PositionalDataSource
 import com.example.gifapisimpleapplication.adapters.FeedItemsAdapter
+import com.example.gifapisimpleapplication.datasource.GifsDataSource
 import com.example.gifapisimpleapplication.entities.GifInfo
 import com.example.gifapisimpleapplication.repositories.GifRepository
 import kotlinx.coroutines.GlobalScope
@@ -14,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class FeedViewModel(
     application: Application,
-    private val gifRepository: GifRepository
+    gifRepository: GifRepository
 ) : BaseViewModel(
     application
 ), FeedItemsAdapter.Callback {
@@ -23,47 +26,15 @@ class FeedViewModel(
         private val TAG: String = FeedViewModel::class.java.simpleName
     }
 
-    //TODO: refactor this
-    private val dataSource = object : PositionalDataSource<GifInfo>() {
-
-        private val query = "cats"//TODO: move to constructor
-
-        override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<GifInfo>) {
-            Log.d(TAG, "loadRange($params, $callback)")
-            GlobalScope.launch {
-                val gifs = gifRepository.fetchGifs(
-                    search = query,
-                    limit = params.loadSize,
-                    pos = params.startPosition
-                )
-                callback.onResult(gifs)
-            }
+    private var query: String? = null
+        set(value) {
+            field = value
+            dataSourceFactory.invalidateLatestDataSource()
         }
 
-        override fun loadInitial(
-            params: LoadInitialParams,
-            callback: LoadInitialCallback<GifInfo>
-        ) {
-            Log.d(TAG, "loadInitial($params, $callback)")
-            GlobalScope.launch {
-                val gifs = gifRepository.fetchGifs(
-                    search = query,
-                    limit = params.requestedLoadSize,
-                    pos = params.requestedStartPosition
-                )
-                callback.onResult(gifs, params.requestedStartPosition)
-            }
-        }
-    }
+    private val dataSourceFactory = GifsDataSource.Factory(gifRepository) { query }
 
-    //TODO: refactor this
-    private val dataSourceFactory = object : DataSource.Factory<Int, GifInfo>() {
-
-        override fun create(): DataSource<Int, GifInfo> = dataSource
-    }
-
-    //TODO: refactor this
-    val data = LivePagedListBuilder(
+    val data: LiveData<PagedList<GifInfo>> = LivePagedListBuilder(
         dataSourceFactory,
         PagedList.Config.Builder()
             .setPageSize(10)
@@ -73,5 +44,12 @@ class FeedViewModel(
 
     override fun onClick(gif: GifInfo) {
         TODO("Not yet implemented")
+    }
+
+    @MainThread
+    fun onQueryChanged(query: String) {
+        Log.d(TAG, query)
+        this.query = query
+        dataSourceFactory.invalidateLatestDataSource()
     }
 }

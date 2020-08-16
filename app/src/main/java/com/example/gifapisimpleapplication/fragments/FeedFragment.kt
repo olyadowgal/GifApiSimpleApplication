@@ -13,7 +13,7 @@ import com.example.gifapisimpleapplication.adapters.FeedItemsAdapter
 import com.example.gifapisimpleapplication.viewmodels.FeedViewModel
 import kotlinx.android.synthetic.main.fragment_feed.*
 
-class FeedFragment() : BaseFragment() {
+class FeedFragment() : BaseFragment(), View.OnClickListener {
 
     companion object {
 
@@ -40,6 +40,11 @@ class FeedFragment() : BaseFragment() {
             this.adapter = feedItemsAdapter
         }
 
+        btn_search.setOnClickListener(this)
         viewModel.data.observe(viewLifecycleOwner, Observer { feedItemsAdapter.submitList(it) })
+    }
+
+    override fun onClick(v: View?) {
+        viewModel.onQueryChanged(txt_query.text.toString())
     }
 }
