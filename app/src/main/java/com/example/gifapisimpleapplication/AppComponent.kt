@@ -41,11 +41,13 @@ object AppComponent {
 
     private val apiClient by lazy { ApiClient(retrofit) }
 
-    private val appDatabase = Room.databaseBuilder(
-        application,
-        AppDatabase::class.java,
-        "database"
-    ).build()
+    private val appDatabase by lazy {
+        Room.databaseBuilder(
+            application,
+            AppDatabase::class.java,
+            "database"
+        ).build()
+    }
 
     private val gifRepository: GifRepository by lazy {
         GifRepository(

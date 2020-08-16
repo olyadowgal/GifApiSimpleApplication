@@ -5,6 +5,8 @@ buildscript {
     ext.okHttpVersion = '3.13.1'
     ext.lifecycleVersion = '2.1.0'
     ext.roomVersion = '2.2.5'
+    ext.pagingVersion = "2.1.2"
+
     repositories {
         google()
         jcenter()
