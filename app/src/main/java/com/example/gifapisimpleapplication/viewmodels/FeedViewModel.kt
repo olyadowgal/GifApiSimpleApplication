@@ -3,7 +3,7 @@ package com.example.gifapisimpleapplication.viewmodels
 import android.app.Application
 import android.util.Log
 import androidx.annotation.MainThread
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.example.gifapisimpleapplication.adapters.FeedItemsAdapter
@@ -18,7 +18,7 @@ class FeedViewModel(
     private val gifRepository: GifRepository
 ) : BaseViewModel(
     application
-), FeedItemsAdapter.Callback {
+), FeedItemsAdapter.Callback, LifecycleEventObserver {
 
     companion object {
         private val TAG: String = FeedViewModel::class.java.simpleName
@@ -58,6 +58,12 @@ class FeedViewModel(
             } else {
                 gifRepository.deleteFromFavorites(gif)
             }
+        }
+    }
+
+    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+       if (event == Lifecycle.Event.ON_RESUME) {
+           dataSourceFactory.invalidateLatestDataSource()
         }
     }
 }
