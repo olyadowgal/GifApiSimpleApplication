@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gifapisimpleapplication.AppComponent
 import com.example.gifapisimpleapplication.R
@@ -39,11 +40,7 @@ class FavoritesFragment : BaseFragment() {
             this.adapter = feedItemsAdapter
         }
 
-        //viewModel.data.observe(viewLifecycleOwner, Observer { feedItemsAdapter.submitList(it) })
+        viewModel.data.observe(viewLifecycleOwner, Observer { feedItemsAdapter.submitList(it) })
     }
-
-//    override fun onClick(v: View?) {
-//        viewModel.onQueryChanged(txt_query.text.toString())
-//    }
 
 }

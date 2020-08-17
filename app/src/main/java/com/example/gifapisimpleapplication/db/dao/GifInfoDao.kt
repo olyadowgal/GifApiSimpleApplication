@@ -1,5 +1,6 @@
 package com.example.gifapisimpleapplication.db.dao
 
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,10 +11,10 @@ import com.example.gifapisimpleapplication.entities.GifInfo
 interface GifInfoDao {
 
     @Query("SELECT * FROM Favorites")
-    suspend fun selectAll(): List<GifInfo>
+    fun selectAll(): DataSource.Factory<Int, GifInfo>
 
-    @Query("SELECT * FROM Favorites WHERE id IN (:ids)")
-    suspend fun selectAllWithId(ids : List<String>): List<GifInfo>
+    @Query("SELECT * FROM Favorites WHERE id IN (:id)")
+    suspend fun selectWithId(id : String): List<GifInfo>
 
     @Query("DELETE FROM Favorites WHERE id = (:id)")
     suspend fun delete(id : String)
