@@ -1,15 +1,15 @@
 package com.example.gifapisimpleapplication
 
 import android.app.Application
+import androidx.room.Room
+import com.example.gifapisimpleapplication.db.AppDatabase
 import com.example.gifapisimpleapplication.network.ApiClient
 import com.example.gifapisimpleapplication.network.interceptors.AuthInterceptor
 import com.example.gifapisimpleapplication.repositories.GifRepository
 import com.example.gifapisimpleapplication.viewmodels.ViewModelFactory
-import com.readystatesoftware.chuck.ChuckInterceptor
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
@@ -41,12 +41,23 @@ object AppComponent {
 
     private val apiClient by lazy { ApiClient(retrofit) }
 
+    private val appDatabase by lazy {
+        Room.databaseBuilder(
+            application,
+            AppDatabase::class.java,
+            "database"
+        ).build()
+    }
+
     private val gifRepository: GifRepository by lazy {
-        GifRepository(apiClient)
+        GifRepository(
+            apiClient = apiClient,
+            gifInfoDao = appDatabase.gifInfoDao()
+        )
     }
 
     val viewModelFactory by lazy {
-        ViewModelFactory(application,gifRepository)
+        ViewModelFactory(application, gifRepository)
     }
 
     fun init(application: Application) {
