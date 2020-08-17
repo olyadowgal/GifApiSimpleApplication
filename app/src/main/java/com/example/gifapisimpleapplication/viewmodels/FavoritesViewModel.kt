@@ -13,7 +13,11 @@ class FavoritesViewModel(
 ), FeedItemsAdapter.Callback {
 
 
-    override fun onClick(gif: GifInfo) {
+    override fun onGifClick(gif: GifInfo) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onAddToFavoritesClick(gif: GifInfo) {
         TODO("Not yet implemented")
     }
 

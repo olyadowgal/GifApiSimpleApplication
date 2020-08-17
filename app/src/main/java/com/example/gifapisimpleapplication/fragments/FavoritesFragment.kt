@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gifapisimpleapplication.AppComponent
 import com.example.gifapisimpleapplication.R
 import com.example.gifapisimpleapplication.adapters.FeedItemsAdapter
-import com.example.gifapisimpleapplication.viewmodels.BaseViewModel
 import com.example.gifapisimpleapplication.viewmodels.FavoritesViewModel
 import kotlinx.android.synthetic.main.fragment_feed.*
 
@@ -23,7 +22,7 @@ class FavoritesFragment : BaseFragment() {
     override val viewModel: FavoritesViewModel by viewModels { AppComponent.viewModelFactory }
 
     private val feedItemsAdapter: FeedItemsAdapter by lazy {
-        FeedItemsAdapter()
+        FeedItemsAdapter(viewModel)
     }
 
     override fun onCreateView(

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">GifApiSimpleApplication</string>
-    <string name="favorites_button">ADD TO FAVORITES</string>
+    <string name="favorites_button_deactive">REMOVE FROM FAVORITES</string>
+    <string name="favorites_button_active">ADD TO FAVORITES</string>
+
 
     <string-array name="tabs_names">
         <item>Search</item>

@@ -23,7 +23,7 @@ class FeedFragment() : BaseFragment(), View.OnClickListener {
     override val viewModel: FeedViewModel by viewModels { AppComponent.viewModelFactory }
 
     private val feedItemsAdapter: FeedItemsAdapter by lazy {
-        FeedItemsAdapter()
+        FeedItemsAdapter(viewModel)
     }
 
     override fun onCreateView(
