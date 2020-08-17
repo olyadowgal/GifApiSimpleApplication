@@ -8,10 +8,12 @@ import com.example.gifapisimpleapplication.adapters.FeedItemsAdapter
 import com.example.gifapisimpleapplication.datasource.GifsDataSource
 import com.example.gifapisimpleapplication.entities.GifInfo
 import com.example.gifapisimpleapplication.repositories.GifRepository
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class FavoritesViewModel(
     application: Application,
-    gifRepository: GifRepository
+    private val gifRepository: GifRepository
 ) : BaseViewModel(
     application
 ), FeedItemsAdapter.Callback {
@@ -32,7 +34,15 @@ class FavoritesViewModel(
     }
 
     override fun onAddToFavoritesClick(gif: GifInfo) {
-        TODO("Not yet implemented")
+        if (gif.isFavorite) {
+            GlobalScope.launch {
+                gifRepository.deleteFromFavorites(gif)
+            }
+        } else {
+            GlobalScope.launch {
+                gifRepository.insertToFavorites(gif)
+            }
+        }
     }
 
 }
