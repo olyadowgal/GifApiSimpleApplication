@@ -20,6 +20,12 @@ class ViewModelFactory(
                     gifRepository
                 ) as T
             }
+            FavoritesViewModel::class.java -> {
+                FavoritesViewModel(
+                    application,
+                    gifRepository
+                ) as T
+            }
             else -> throw RuntimeException()
         }
     }
