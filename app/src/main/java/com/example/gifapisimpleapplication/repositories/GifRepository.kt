@@ -20,25 +20,13 @@ class GifRepository(private val apiClient: ApiClient, private val gifInfoDao: Gi
             pos = pos
         ).results.map {
             val gif = it.media.first().gif
-            if (gifInfoDao.selectWithId(it.id) == emptyList<GifInfo>()) {
-                GifInfo(
-                    id = it.id,
-                    title = it.title,
-                    url = gif.url,
-                    preview = gif.preview,
-                    isFavorite = false
-                )
-            }
-            else {
-                GifInfo(
-                    id = it.id,
-                    title = it.title,
-                    url = gif.url,
-                    preview = gif.preview,
-                    isFavorite = true
-                )
-            }
-
+            GifInfo(
+                id = it.id,
+                title = it.title,
+                url = gif.url,
+                preview = gif.preview,
+                isFavorite = gifInfoDao.existWithId(it.id)
+            )
         }
     }
 
@@ -47,10 +35,12 @@ class GifRepository(private val apiClient: ApiClient, private val gifInfoDao: Gi
     }
 
     suspend fun insertToFavorites(gif : GifInfo) {
+        Log.d(TAG, "insert ${gif.id}")
         gifInfoDao.insert(gif)
     }
 
     suspend fun deleteFromFavorites(gif : GifInfo) {
+        Log.d(TAG, "delete ${gif.id}")
         gifInfoDao.delete(gif.id)
     }
 }

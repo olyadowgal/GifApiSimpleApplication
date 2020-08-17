@@ -97,5 +97,8 @@ dependencies {
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$roomVersion"
+
+    //Stetho
+    implementation 'com.facebook.stetho:stetho:1.5.1'
 }
 

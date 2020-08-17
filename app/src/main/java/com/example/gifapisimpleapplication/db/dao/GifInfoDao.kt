@@ -13,10 +13,10 @@ interface GifInfoDao {
     @Query("SELECT * FROM Favorites")
     fun selectAll(): DataSource.Factory<Int, GifInfo>
 
-    @Query("SELECT * FROM Favorites WHERE id IN (:id)")
-    suspend fun selectWithId(id : String): List<GifInfo>
+    @Query("SELECT EXISTS(SELECT * FROM Favorites WHERE id = :id)")
+    suspend fun existWithId(id : String): Boolean
 
-    @Query("DELETE FROM Favorites WHERE id = (:id)")
+    @Query("DELETE FROM Favorites WHERE id = :id")
     suspend fun delete(id : String)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

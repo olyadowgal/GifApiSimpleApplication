@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.example.gifapisimpleapplication.adapters.FeedItemsAdapter
-import com.example.gifapisimpleapplication.datasource.GifsDataSource
 import com.example.gifapisimpleapplication.entities.GifInfo
 import com.example.gifapisimpleapplication.repositories.GifRepository
 import kotlinx.coroutines.GlobalScope
@@ -18,14 +17,10 @@ class FavoritesViewModel(
     application
 ), FeedItemsAdapter.Callback {
 
-
-    private val dataSourceFactory = gifRepository.getAllFavorites()
-
     val data: LiveData<PagedList<GifInfo>> = LivePagedListBuilder(
-        dataSourceFactory,
+        gifRepository.getAllFavorites(),
         PagedList.Config.Builder()
             .setPageSize(10)
-            .setEnablePlaceholders(false)
             .build()
     ).build()
 
@@ -33,16 +28,14 @@ class FavoritesViewModel(
         TODO("Not yet implemented")
     }
 
+    /**
+     * We can only delete GIFs from favorites on this screen
+     */
     override fun onAddToFavoritesClick(gif: GifInfo) {
-        if (gif.isFavorite) {
-            GlobalScope.launch {
-                gifRepository.deleteFromFavorites(gif)
-            }
-        } else {
-            GlobalScope.launch {
-                gifRepository.insertToFavorites(gif)
-            }
+        GlobalScope.launch {
+            gifRepository.deleteFromFavorites(gif)
         }
     }
+
 
 }
