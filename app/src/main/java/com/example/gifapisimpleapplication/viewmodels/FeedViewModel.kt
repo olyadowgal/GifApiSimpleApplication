@@ -60,11 +60,11 @@ class FeedViewModel(
     override fun onAddToFavoritesClick(gif: GifInfo) {
         if (gif.isFavorite) {
             GlobalScope.launch {
-                gifRepository.insertToFavorites(gif)
+                gifRepository.deleteFromFavorites(gif)
             }
         } else {
             GlobalScope.launch {
-                gifRepository.deleteFromFavorites(gif)
+                gifRepository.insertToFavorites(gif)
             }
         }
 
