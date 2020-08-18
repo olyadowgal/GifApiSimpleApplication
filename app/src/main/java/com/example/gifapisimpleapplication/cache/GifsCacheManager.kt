@@ -63,6 +63,15 @@ class GifsCacheManager(
         }
     }
 
+    fun getImageById(id : String): File? {
+        externalFilesDir.listFiles().orEmpty().forEach {
+            if (id == it.name.replace(".gif", "")) {
+                return it
+            }
+        }
+        return null
+    }
+
     suspend fun download(gif: GifInfo) = withContext(Dispatchers.IO) {
         Log.d(TAG, "download($gif)")
         val file = File(externalFilesDir, gif.fileName)

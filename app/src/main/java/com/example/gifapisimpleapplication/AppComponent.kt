@@ -61,7 +61,7 @@ object AppComponent {
         ViewModelFactory(application, gifRepository)
     }
 
-    private val gifCacheManager: GifsCacheManager by lazy {
+    val gifCacheManager: GifsCacheManager by lazy {
         GifsCacheManager(application, gifRepository)
     }
 

@@ -3,12 +3,10 @@ package com.example.gifapisimpleapplication.viewmodels
 import android.app.Application
 import android.util.Log
 import androidx.annotation.MainThread
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.example.gifapisimpleapplication.AppComponent
 import com.example.gifapisimpleapplication.activities.FullScreenActivity
 import com.example.gifapisimpleapplication.adapters.FeedItemsAdapter
 import com.example.gifapisimpleapplication.datasource.GifsDataSource
@@ -53,7 +51,7 @@ class FeedViewModel(
     }
 
     override fun onGifClick(gif: GifInfo) {
-        _viewAction.value = ViewAction.Navigate(FullScreenActivity::class.java).putArg("gif", gif)
+        _viewAction.value = ViewAction.Navigate(FullScreenActivity::class.java).putArg("gif",gif)
     }
 
     override fun onAddToFavoritesClick(gif: GifInfo) {
@@ -67,8 +65,8 @@ class FeedViewModel(
     }
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-        if (event == Lifecycle.Event.ON_RESUME) {
-            dataSourceFactory.invalidateLatestDataSource()
+       if (event == Lifecycle.Event.ON_RESUME) {
+           dataSourceFactory.invalidateLatestDataSource()
         }
     }
 }
