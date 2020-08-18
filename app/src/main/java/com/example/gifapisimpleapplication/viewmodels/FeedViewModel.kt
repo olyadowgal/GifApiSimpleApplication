@@ -6,9 +6,11 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.example.gifapisimpleapplication.activities.FullScreenActivity
 import com.example.gifapisimpleapplication.adapters.FeedItemsAdapter
 import com.example.gifapisimpleapplication.datasource.GifsDataSource
 import com.example.gifapisimpleapplication.entities.GifInfo
+import com.example.gifapisimpleapplication.livedata.ViewAction
 import com.example.gifapisimpleapplication.repositories.GifRepository
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -48,7 +50,7 @@ class FeedViewModel(
     }
 
     override fun onGifClick(gif: GifInfo) {
-        TODO("Not yet implemented")
+        _viewAction.value = ViewAction.Navigate(FullScreenActivity::class.java).putArg("gif",gif)
     }
 
     override fun onAddToFavoritesClick(gif: GifInfo) {

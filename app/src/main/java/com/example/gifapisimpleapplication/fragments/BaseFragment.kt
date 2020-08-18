@@ -23,27 +23,16 @@ abstract class BaseFragment : Fragment() {
     protected open fun handleViewAction(action: ViewAction) {
         when (action) {
             is ViewAction.Navigate -> navigate(action)
-            is ViewAction.NavigateWithDirection -> navigateWithDirection(action.direction)
-            is ViewAction.Finish -> finish(action)
             else -> throw RuntimeException("Unable to handle this action: $action")
         }
     }
 
     private fun navigate(action: ViewAction.Navigate) {
-        val intent = action.buildIntent(context!!)
+        val intent = action.buildIntent(requireContext())
         if (action.requestCode == null) {
             startActivity(intent)
         } else {
             startActivityForResult(intent, action.requestCode)
         }
-    }
-
-    private fun navigateWithDirection(direction: NavDirections) {
-        view!!.findNavController().navigate(direction)
-    }
-
-    private fun finish(action: ViewAction.Finish) {
-        action.resultCode?.let { activity?.setResult(it) }
-        activity?.finish()
     }
 }
