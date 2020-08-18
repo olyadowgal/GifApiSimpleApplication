@@ -1,7 +1,9 @@
 package com.example.gifapisimpleapplication.repositories
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
+import com.example.gifapisimpleapplication.cache.GifsCacheManager
 import com.example.gifapisimpleapplication.db.dao.GifInfoDao
 import com.example.gifapisimpleapplication.entities.GifInfo
 import com.example.gifapisimpleapplication.network.ApiClient
@@ -30,16 +32,16 @@ class GifRepository(private val apiClient: ApiClient, private val gifInfoDao: Gi
         }
     }
 
-    fun getAllFavorites() : DataSource.Factory<Int,GifInfo> {
-       return gifInfoDao.selectAll()
-    }
+    fun getAllFavorites(): DataSource.Factory<Int, GifInfo> = gifInfoDao.selectAll()
 
-    suspend fun insertToFavorites(gif : GifInfo) {
+    fun observeAllFavorites() = gifInfoDao.observerAll()
+
+    suspend fun insertToFavorites(gif: GifInfo) {
         Log.d(TAG, "insert ${gif.id}")
         gifInfoDao.insert(gif)
     }
 
-    suspend fun deleteFromFavorites(gif : GifInfo) {
+    suspend fun deleteFromFavorites(gif: GifInfo) {
         Log.d(TAG, "delete ${gif.id}")
         gifInfoDao.delete(gif.id)
     }

@@ -1,5 +1,6 @@
 package com.example.gifapisimpleapplication.db.dao
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
@@ -12,6 +13,9 @@ interface GifInfoDao {
 
     @Query("SELECT * FROM Favorites")
     fun selectAll(): DataSource.Factory<Int, GifInfo>
+
+    @Query("SELECT * FROM Favorites")
+    fun observerAll(): LiveData<List<GifInfo>>
 
     @Query("SELECT EXISTS(SELECT * FROM Favorites WHERE id = :id)")
     suspend fun existWithId(id : String): Boolean

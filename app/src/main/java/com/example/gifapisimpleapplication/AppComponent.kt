@@ -2,6 +2,7 @@ package com.example.gifapisimpleapplication
 
 import android.app.Application
 import androidx.room.Room
+import com.example.gifapisimpleapplication.cache.GifsCacheManager
 import com.example.gifapisimpleapplication.db.AppDatabase
 import com.example.gifapisimpleapplication.network.ApiClient
 import com.example.gifapisimpleapplication.network.interceptors.AuthInterceptor
@@ -60,7 +61,13 @@ object AppComponent {
         ViewModelFactory(application, gifRepository)
     }
 
+    private val gifCacheManager: GifsCacheManager by lazy {
+        GifsCacheManager(application, gifRepository)
+    }
+
     fun init(application: Application) {
         this.application = application
+
+        gifCacheManager//Init by lazy
     }
 }
