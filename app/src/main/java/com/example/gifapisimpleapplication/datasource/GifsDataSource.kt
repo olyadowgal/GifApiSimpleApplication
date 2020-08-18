@@ -1,5 +1,6 @@
 package com.example.gifapisimpleapplication.datasource
 
+import android.net.Network
 import android.util.Log
 import androidx.paging.DataSource
 import androidx.paging.PositionalDataSource
@@ -7,6 +8,7 @@ import com.example.gifapisimpleapplication.entities.GifInfo
 import com.example.gifapisimpleapplication.repositories.GifRepository
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class GifsDataSource(
     private val gifRepository: GifRepository,
@@ -20,12 +22,17 @@ class GifsDataSource(
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<GifInfo>) {
         Log.d(TAG, "loadRange($params, $callback)")
         GlobalScope.launch {
-            val gifs = gifRepository.fetchGifs(
-                search = query,
-                limit = params.loadSize,
-                pos = params.startPosition
-            )
-            callback.onResult(gifs)
+            try {
+                val gifs = gifRepository.fetchGifs(
+                    search = query,
+                    limit = params.loadSize,
+                    pos = params.startPosition
+                )
+                callback.onResult(gifs)
+            } catch(e : Exception) {
+                e.printStackTrace()
+                callback.onResult(emptyList())
+            }
         }
     }
 
@@ -35,12 +42,19 @@ class GifsDataSource(
     ) {
         Log.d(TAG, "loadInitial($params, $callback)")
         GlobalScope.launch {
-            val gifs = gifRepository.fetchGifs(
-                search = query,
-                limit = params.requestedLoadSize,
-                pos = params.requestedStartPosition
-            )
-            callback.onResult(gifs, params.requestedStartPosition)
+            try {
+                val gifs = gifRepository.fetchGifs(
+                    search = query,
+                    limit = params.requestedLoadSize,
+                    pos = params.requestedStartPosition
+                )
+                callback.onResult(gifs, params.requestedStartPosition)
+            } catch (e :Exception) {
+                e.printStackTrace()
+                callback.onResult(emptyList(),0)
+            }
+
+
         }
     }
 
