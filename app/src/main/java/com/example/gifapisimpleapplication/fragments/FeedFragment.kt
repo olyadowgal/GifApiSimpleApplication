@@ -45,6 +45,7 @@ class FeedFragment() : BaseFragment(), View.OnClickListener, SwipeRefreshLayout.
         btn_search.setOnClickListener(this)
         swipe_refresh.setOnRefreshListener(this)
         viewModel.data.observe(viewLifecycleOwner, Observer { feedItemsAdapter.submitList(it) })
+        viewModel.showSpinner.observe(viewLifecycleOwner, Observer { swipe_refresh.isRefreshing = it == true })
     }
 
     override fun onClick(v: View?) {
@@ -52,6 +53,6 @@ class FeedFragment() : BaseFragment(), View.OnClickListener, SwipeRefreshLayout.
     }
 
     override fun onRefresh() {
-        viewModel.onQueryChanged(txt_query.text.toString())
+        viewModel.onRefresh()
     }
 }
