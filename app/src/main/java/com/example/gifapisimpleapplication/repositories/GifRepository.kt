@@ -1,6 +1,7 @@
 package com.example.gifapisimpleapplication.repositories
 
 import android.util.Log
+import androidx.paging.DataSource
 import com.example.gifapisimpleapplication.db.dao.GifInfoDao
 import com.example.gifapisimpleapplication.entities.GifInfo
 import com.example.gifapisimpleapplication.network.ApiClient
@@ -12,7 +13,7 @@ class GifRepository(private val apiClient: ApiClient, private val gifInfoDao: Gi
     }
 
     suspend fun fetchGifs(search: String? = null, limit: Int = 10, pos: Int = 0): List<GifInfo> {
-        Log.d(TAG, "fetchGift(seach = $search, limit = $limit, pos = $pos)")
+        Log.d(TAG, "fetchGift(search = $search, limit = $limit, pos = $pos)")
         return apiClient.gifService.getSearch(
             search = search,
             limit = limit,
@@ -24,16 +25,22 @@ class GifRepository(private val apiClient: ApiClient, private val gifInfoDao: Gi
                 title = it.title,
                 url = gif.url,
                 preview = gif.preview,
-                isFavorite = false
+                isFavorite = gifInfoDao.existWithId(it.id)
             )
         }
     }
 
+    fun getAllFavorites() : DataSource.Factory<Int,GifInfo> {
+       return gifInfoDao.selectAll()
+    }
+
     suspend fun insertToFavorites(gif : GifInfo) {
+        Log.d(TAG, "insert ${gif.id}")
         gifInfoDao.insert(gif)
     }
 
     suspend fun deleteFromFavorites(gif : GifInfo) {
+        Log.d(TAG, "delete ${gif.id}")
         gifInfoDao.delete(gif.id)
     }
 }

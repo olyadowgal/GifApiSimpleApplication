@@ -3,11 +3,9 @@ package com.example.gifapisimpleapplication.viewmodels
 import android.app.Application
 import android.util.Log
 import androidx.annotation.MainThread
-import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
+import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import androidx.paging.PositionalDataSource
 import com.example.gifapisimpleapplication.adapters.FeedItemsAdapter
 import com.example.gifapisimpleapplication.datasource.GifsDataSource
 import com.example.gifapisimpleapplication.entities.GifInfo
@@ -17,10 +15,10 @@ import kotlinx.coroutines.launch
 
 class FeedViewModel(
     application: Application,
-    gifRepository: GifRepository
+    private val gifRepository: GifRepository
 ) : BaseViewModel(
     application
-), FeedItemsAdapter.Callback {
+), FeedItemsAdapter.Callback, LifecycleEventObserver {
 
     companion object {
         private val TAG: String = FeedViewModel::class.java.simpleName
@@ -42,14 +40,30 @@ class FeedViewModel(
             .build()
     ).build()
 
-    override fun onClick(gif: GifInfo) {
-        TODO("Not yet implemented")
-    }
-
     @MainThread
     fun onQueryChanged(query: String) {
         Log.d(TAG, query)
         this.query = query
         dataSourceFactory.invalidateLatestDataSource()
+    }
+
+    override fun onGifClick(gif: GifInfo) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onAddToFavoritesClick(gif: GifInfo) {
+        GlobalScope.launch {
+            if (gif.isFavorite) {
+                gifRepository.insertToFavorites(gif)
+            } else {
+                gifRepository.deleteFromFavorites(gif)
+            }
+        }
+    }
+
+    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+       if (event == Lifecycle.Event.ON_RESUME) {
+           dataSourceFactory.invalidateLatestDataSource()
+        }
     }
 }

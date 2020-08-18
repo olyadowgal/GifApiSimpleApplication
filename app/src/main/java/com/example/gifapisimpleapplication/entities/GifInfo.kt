@@ -11,20 +11,22 @@ data class GifInfo(
     val title: String,
     val url: String,
     val preview: String,
-    val isFavorite : Boolean
+    var isFavorite : Boolean
 ) {
 
     companion object {
 
         val DIFF_CALLBACK = object: DiffUtil.ItemCallback<GifInfo>() {
 
-            override fun areItemsTheSame(oldItem: GifInfo, newItem: GifInfo): Boolean {
-                return oldItem == newItem
-            }
+            override fun areItemsTheSame(
+                oldItem: GifInfo,
+                newItem: GifInfo
+            ): Boolean = oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: GifInfo, newItem: GifInfo): Boolean {
-                return oldItem == newItem
-            }
+            override fun areContentsTheSame(
+                oldItem: GifInfo,
+                newItem: GifInfo
+            ): Boolean = oldItem == newItem
         }
     }
 }
