@@ -6,7 +6,6 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.example.gifapisimpleapplication.AppComponent
 import com.example.gifapisimpleapplication.activities.FullScreenActivity
 import com.example.gifapisimpleapplication.adapters.FeedItemsAdapter
 import com.example.gifapisimpleapplication.datasource.GifsDataSource

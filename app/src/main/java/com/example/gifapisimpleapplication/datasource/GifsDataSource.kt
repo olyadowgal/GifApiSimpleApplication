@@ -1,6 +1,5 @@
 package com.example.gifapisimpleapplication.datasource
 
-import android.net.Network
 import android.util.Log
 import androidx.paging.DataSource
 import androidx.paging.PositionalDataSource
