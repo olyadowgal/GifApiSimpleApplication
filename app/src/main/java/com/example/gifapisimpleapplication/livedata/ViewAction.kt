@@ -1,5 +1,6 @@
 package com.example.gifapisimpleapplication.livedata
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.navigation.NavDirections
@@ -23,7 +24,7 @@ sealed class ViewAction {
 
     class Navigate @JvmOverloads constructor(
         @Suppress("MemberVisibilityCanBePrivate")
-        val activityClass: Class<out MainActivity>,
+        val activityClass: Class<out Activity>,
         val requestCode: Int? = null
     ) : ViewAction() {
 
@@ -51,9 +52,6 @@ sealed class ViewAction {
         }
     }
 
-    data class NavigateWithDirection(val direction: NavDirections): ViewAction()
-
-    class Finish @JvmOverloads constructor(val resultCode: Int? = null) : ViewAction()
     class Custom(val action: String) : ViewAction()
 
     @PublishedApi

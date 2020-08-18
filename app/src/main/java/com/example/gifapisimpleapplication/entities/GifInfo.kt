@@ -1,9 +1,12 @@
 package com.example.gifapisimpleapplication.entities
 
+import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "Favorites")
 data class GifInfo(
     @PrimaryKey
@@ -12,7 +15,7 @@ data class GifInfo(
     val url: String,
     val preview: String,
     var isFavorite : Boolean
-) {
+): Parcelable {
 
     companion object {
 
