@@ -9,4 +9,5 @@
         <item>Favorites</item>
     </string-array>
     <string name="id_as_name">Gif # %1$s </string>
+    <string name="no_internet_error_text">No internet connection.</string>
 </resources>

@@ -23,7 +23,7 @@ class FavoritesFragment : BaseFragment() {
     override val viewModel: FavoritesViewModel by viewModels { AppComponent.viewModelFactory }
 
     private val feedItemsAdapter: FeedItemsAdapter by lazy {
-        FeedItemsAdapter(viewModel)
+        FeedItemsAdapter(viewModel, AppComponent.gifCacheManager)
     }
 
     override fun onCreateView(
