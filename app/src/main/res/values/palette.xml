@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--get colors names from here: http://www.htmlcsscolor.com/-->
+
+<resources>
+    <color name="blue_gem">#4D2C91</color>
+    <color name="slate_blue">#7E57C2</color>
+    <color name="biloba_flower">#B085F5</color>
+    <color name="rouge">#BA2D65</color>
+    <color name="deep_blush">#F06292</color>
+    <color name="carnation_pink">#FF94C2</color>
+    <color name="haiti">#19171F</color>
+    <color name="mid_grey">#6C6E6F</color>
+    <color name="mid_gray_40_percent">#C4C5C5</color>
+    <color name="white">#FFFFFF</color>
+
+</resources>
