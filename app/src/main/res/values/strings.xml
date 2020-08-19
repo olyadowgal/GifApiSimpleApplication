@@ -10,4 +10,6 @@
     </string-array>
     <string name="id_as_name">Gif # %1$s </string>
     <string name="no_internet_error_text">No internet connection.</string>
+    <string name="placeholder_title">Looks like there nothing to show</string>
+    <string name="placehoder_subtitle">But you can try to search for gif’s with cats. We got a lot of them.</string>
 </resources>
