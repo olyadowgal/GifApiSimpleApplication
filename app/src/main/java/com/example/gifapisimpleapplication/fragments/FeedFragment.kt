@@ -13,7 +13,6 @@ import com.example.gifapisimpleapplication.AppComponent
 import com.example.gifapisimpleapplication.R
 import com.example.gifapisimpleapplication.adapters.FeedItemsAdapter
 import com.example.gifapisimpleapplication.viewmodels.FeedViewModel
-import com.google.android.material.behavior.SwipeDismissBehavior
 import kotlinx.android.synthetic.main.fragment_feed.*
 
 class FeedFragment() : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener {
