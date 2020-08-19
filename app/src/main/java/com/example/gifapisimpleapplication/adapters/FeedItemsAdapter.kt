@@ -25,8 +25,6 @@ class FeedItemsAdapter(val callback: Callback, val gifsCacheManager: GifsCacheMa
     }
 
     object ViewType {
-
-        const val PLACEHOLDER = R.layout.item_placeholder
         const val FEED = R.layout.item_feed
     }
 
@@ -38,9 +36,7 @@ class FeedItemsAdapter(val callback: Callback, val gifsCacheManager: GifsCacheMa
     )
 
     override fun getItemViewType(position: Int): Int {
-        return if (currentList.isNullOrEmpty()) {
-            ViewType.PLACEHOLDER
-        } else ViewType.FEED
+        return ViewType.FEED
     }
 
     override fun onBindViewHolder(holder: FeedItemsAdapter.FeedItemViewHolder, position: Int) {
