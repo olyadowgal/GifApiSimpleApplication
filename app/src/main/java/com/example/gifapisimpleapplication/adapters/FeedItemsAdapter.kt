@@ -24,12 +24,20 @@ class FeedItemsAdapter(val callback: Callback, val gifsCacheManager: GifsCacheMa
         fun onAddToFavoritesClick(gif: GifInfo)
     }
 
+    object ViewType {
+        const val FEED = R.layout.item_feed
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ) = FeedItemViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_feed, parent, false)
+        LayoutInflater.from(parent.context).inflate(viewType, parent, false)
     )
+
+    override fun getItemViewType(position: Int): Int {
+        return ViewType.FEED
+    }
 
     override fun onBindViewHolder(holder: FeedItemsAdapter.FeedItemViewHolder, position: Int) {
         holder.onBind(getItem(position))
@@ -46,7 +54,7 @@ class FeedItemsAdapter(val callback: Callback, val gifsCacheManager: GifsCacheMa
 
         fun onBind(item: GifInfo?) {
             if (item == null) {
-                //Maybe load placeholder image
+
             } else {
                 val file = gifsCacheManager.getImageById(item.id)
                 if (file != null) {

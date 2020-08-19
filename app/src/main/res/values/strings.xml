@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">GifApiSimpleApplication</string>
+    <string name="app_name">Gif App</string>
     <string name="favorites_button_deactive">REMOVE FROM FAVORITES</string>
     <string name="favorites_button_active">ADD TO FAVORITES</string>
-
-
     <string-array name="tabs_names">
         <item>Search</item>
         <item>Favorites</item>
     </string-array>
     <string name="id_as_name">Gif # %1$s </string>
     <string name="no_internet_error_text">No internet connection.</string>
+    <string name="placeholder_title">Looks like there nothing to show</string>
+    <string name="placehoder_subtitle">But you can try to search for gif’s with cats. We got a lot of them.</string>
 </resources>
