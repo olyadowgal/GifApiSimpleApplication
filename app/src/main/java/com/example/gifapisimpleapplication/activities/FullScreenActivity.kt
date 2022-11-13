@@ -14,8 +14,10 @@ class FullScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_full_screen)
         val item = intent.getParcelableExtra<GifInfo>("gif")
-        Glide.with(this).load(item.url)
-            .placeholder(R.drawable.ic_placeholder)
-            .into(img_full_screen)
+        if (item != null) {
+            Glide.with(this).load(item.url)
+                .placeholder(R.drawable.ic_placeholder)
+                .into(img_full_screen)
+        }
     }
 }
